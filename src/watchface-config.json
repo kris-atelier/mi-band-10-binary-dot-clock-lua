@@ -24,10 +24,10 @@
   "features": {
     "amPm": true,
     "dateTapView": true,
-    "dateFormat": "MM.DD",
+    "dateFormat": "YYYY.MM.DD",
     "weekdayLanguage": "ko",
     "dateFont": "MiSans-Regular",
-    "dateFontSize": 52,
+    "dateFontSize": 34,
     "weekdayFont": "MiSans-Regular",
     "weekdayFontSize": 72,
     "weather": false,

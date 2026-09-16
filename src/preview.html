@@ -13,14 +13,12 @@
   .date-view.visible { display: grid; }
   .date { font-size: 52px; line-height: 1; }
   .weekday { font-size: 72px; line-height: 1; }
-  .hint { position: absolute; bottom: 32px; color: #555; font: 11px sans-serif; }
 </style>
 <main class="band" aria-label="Binary dot clock preview">
   <div class="clock" id="clock"></div>
   <div class="date-view" id="date-view">
     <div class="date" id="date"></div>
     <div class="weekday" id="weekday"></div>
-    <div class="hint">TAP TO RETURN</div>
   </div>
 </main>
 <script>
@@ -47,7 +45,7 @@
     if (!showingDate) {
       clock.replaceChildren(dot(hour24 >= 12), gap(), ...bits(hour12, 4).map(dot), gap(), ...bits(now.getMinutes(), 6).map(dot));
     }
-    date.textContent = `${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')}`;
+    date.textContent = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')}`;
     weekday.textContent = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'][now.getDay()];
   }
   document.querySelector('.band').addEventListener('click', () => {

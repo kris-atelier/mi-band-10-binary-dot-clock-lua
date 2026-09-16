@@ -93,11 +93,11 @@ dateView:add_flag(lvgl.FLAG.EVENT_BUBBLE)
 
 local dateLabel = lvgl.Label(dateView, {
     x = 0,
-    y = 125,
+    y = 115,
     w = lvgl.HOR_RES(),
     h = 90,
-    text = "--.--",
-    text_font = lvgl.Font("MiSans-Regular", 52),
+    text = "----.--.--",
+    text_font = lvgl.Font("MiSans-Regular", 34),
     text_color = TEXT_COLOR,
     text_align = lvgl.ALIGN.CENTER,
     bg_opa = 0,
@@ -121,7 +121,7 @@ local weekdays = { "일요일", "월요일", "화요일", "수요일", "목요�
 
 local function updateDate()
     local now = os.date("*t")
-    dateLabel:set { text = string.format("%02d.%02d", now.month, now.day) }
+    dateLabel:set { text = string.format("%04d.%02d.%02d", now.year, now.month, now.day) }
     weekdayLabel:set { text = weekdays[now.wday] or "요일" }
 end
 
