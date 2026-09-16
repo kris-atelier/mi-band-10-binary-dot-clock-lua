@@ -27,7 +27,20 @@ Mi Band 10용 Lua 엔진 워치페이스의 초기 소스입니다. 기본 화�
 app/lua/main.lua        # LVGL 점·날짜 화면과 dataman 시간 구독
 src/watchface-config.json # 해상도·좌표·표시 규칙
 src/preview.html        # 브라우저용 정적 미리보기
+vendor/MiWatchLuaWatchfaces/ # m0tral Lua 워치페이스 예제 submodule
 MiBand10BinaryDotClock.fprj # Lua 앱을 가리키는 Mi Create 프로젝트 초안
+```
+
+참고 예제를 함께 받으려면 다음처럼 submodule까지 초기화합니다.
+
+```text
+git clone --recurse-submodules https://github.com/kris-atelier/mi-band-10-binary-dot-clock-lua.git
+```
+
+이미 clone한 경우에는 다음 명령으로 가져옵니다.
+
+```text
+git submodule update --init --recursive
 ```
 
 ## 중요한 상태

@@ -1,0 +1,3 @@
+[submodule "vendor/MiWatchLuaWatchfaces"]
+	path = vendor/MiWatchLuaWatchfaces
+	url = https://github.com/m0tral/MiWatchLuaWatchfaces.git
