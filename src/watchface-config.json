@@ -1,0 +1,31 @@
+{
+  "name": "Mi Band 10 Binary Dot Clock Lua",
+  "device": "Mi Band 10",
+  "canvas": { "width": 212, "height": 520, "background": "#000000" },
+  "layout": {
+    "orientation": "native",
+    "dotDiameter": 12,
+    "dotRadius": "circle",
+    "y": 254,
+    "x": {
+      "amPm": 8,
+      "hour": [32, 47, 62, 77],
+      "minute": [104, 119, 134, 149, 164, 179]
+    },
+    "groupOrder": "AM/PM, hour, minute",
+    "bitOrder": "LSB_TO_MSB_LEFT_TO_RIGHT"
+  },
+  "colors": { "on": "#FFFFFF", "off": "#151515" },
+  "dataSources": {
+    "hour": "timeHour",
+    "minute": "timeMinute"
+  },
+  "features": {
+    "amPm": true,
+    "weather": false,
+    "messages": false,
+    "steps": false,
+    "heartRate": false,
+    "seconds": false
+  }
+}

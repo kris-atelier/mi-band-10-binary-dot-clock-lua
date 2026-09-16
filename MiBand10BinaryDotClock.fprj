@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-16" ?>
+<!-- TODO: confirm the regular Mi Band 10 DeviceType in the target EasyFace/Mi Create build. -->
+<FaceProject DeviceType="TODO">
+    <Screen Title="Binary Dot Clock Lua" Bitmap="preview.png">
+        <Widget Shape="34" Name="app_lua%2Fmain.lua" X="0" Y="0" Width="212" Height="520" Alpha="0" Visible_Src="0" />
+    </Screen>
+</FaceProject>
