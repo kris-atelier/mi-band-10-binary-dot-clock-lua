@@ -1,5 +1,5 @@
 {
-  "name": "Mi Band 10 Binary Dot Clock Lua",
+  "name": "Mi Band 10 Binary Dot Clock Lua + Date Tap",
   "device": "Mi Band 10",
   "canvas": { "width": 212, "height": 520, "background": "#000000" },
   "layout": {
@@ -18,10 +18,18 @@
   "colors": { "on": "#FFFFFF", "off": "#151515" },
   "dataSources": {
     "hour": "timeHour",
-    "minute": "timeMinute"
+    "minute": "timeMinute",
+    "dateRefresh": "dateDay"
   },
   "features": {
     "amPm": true,
+    "dateTapView": true,
+    "dateFormat": "MM.DD",
+    "weekdayLanguage": "ko",
+    "dateFont": "MiSans-Regular",
+    "dateFontSize": 52,
+    "weekdayFont": "MiSans-Regular",
+    "weekdayFontSize": 72,
     "weather": false,
     "messages": false,
     "steps": false,
