@@ -1,0 +1,32 @@
+name: Build Band 10 Lua face
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [band10-lua-build]
+
+jobs:
+  package:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download EasyFace Gen2 Compiler v4.23
+        shell: pwsh
+        run: |
+          $url = 'https://github.com/m0tral/EasyFace/releases/download/v4.23/EasyFace_Gen2_CompilerV423.zip'
+          Invoke-WebRequest $url -OutFile "$env:RUNNER_TEMP\easyface.zip"
+          $hash = (Get-FileHash "$env:RUNNER_TEMP\easyface.zip" -Algorithm SHA256).Hash.ToLowerInvariant()
+          if ($hash -ne '5b62773369c10c3402f369e8aa579f13393af359d0214c0d979464e5cc776cef') { throw 'Compiler archive hash mismatch' }
+          Expand-Archive "$env:RUNNER_TEMP\easyface.zip" "$env:RUNNER_TEMP\easyface"
+      - name: Package the unchanged Lua design
+        shell: pwsh
+        run: python scripts/build_face.py --compiler "$env:RUNNER_TEMP\easyface\Compiler.exe"
+      - name: Upload package for manual inspection
+        uses: actions/upload-artifact@v4
+        with:
+          name: MiBand10BinaryDotClock
+          path: dist/*
+          if-no-files-found: error

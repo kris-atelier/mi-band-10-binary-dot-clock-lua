@@ -48,17 +48,19 @@ git submodule update --init --recursive
 이 저장소는 현재 **초기 개발본**입니다.
 
 - m0tral의 [MiWatchLuaWatchfaces](https://github.com/m0tral/MiWatchLuaWatchfaces)와 [EasyFace](https://github.com/m0tral/EasyFace)를 참고한 구조입니다.
-- 공개된 m0tral 예제에는 Mi Band 10 일반 모델의 확정 `DeviceType`/빌드 결과가 함께 제공되지 않습니다. 따라서 `.fprj`의 `DeviceType`은 `TODO` 주석이 있는 추정 placeholder입니다.
-- 실제 Mi Band 10 펌웨어·EasyFace 버전에서 프로젝트를 열고, 대상 기기 식별자와 LVGL 원형 스타일을 확인한 뒤 `.face`를 빌드해야 합니다.
+- EasyFace Gen2 Compiler v4.23의 `DeviceInfo.db`에서 일반 Mi Band 10은 `DeviceType=466`, 212×520, Lua 컨테이너 `Shape=34`로 확인했습니다. Mi Band 10 Pro(`567`)와 구분합니다.
+- `app/lua/main.lua`의 2화면 동작은 유지합니다. 실제 M2459B1 / FW 3.2.8에서 Lua 실행과 화면 탭·한글 폰트는 아직 실기 검증이 필요합니다.
 - 검증되지 않은 `.face` 바이너리는 저장소에 포함하지 않습니다.
 
 ## 개발 순서
 
 1. Windows 환경에서 EasyFace 또는 호환 Mi Create 도구를 준비합니다.
-2. `MiBand10BinaryDotClock.fprj`를 열고 Mi Band 10 일반 모델의 실제 대상 식별자로 교체합니다.
-3. `app/lua/main.lua`를 Lua 앱 리소스로 패키징합니다.
+2. [EasyFace v4.23 배포 파일](https://github.com/m0tral/EasyFace/releases/tag/v4.23)을 풀어 `Compiler.exe`와 `DeviceInfo.db`를 같은 디렉터리에 둡니다.
+3. Windows에서 `python scripts/build_face.py --compiler C:\\path\\to\\Compiler.exe`를 실행합니다. macOS는 Wine이 설치된 경우 동일한 명령을 쓸 수 있습니다. 이 스크립트는 기존 Lua 파일을 변경하지 않고 프로젝트와 미리보기 이미지를 임시 디렉터리에 준비한 뒤 `dist/`에 `.face`와 동일 바이트의 `.bin`을 만듭니다.
 4. `src/preview.html`과 실제 밴드에서 시간·탭 전환·글자 크기·점 간격을 확인합니다.
-5. 자신의 펌웨어에서만 `.face`를 시험합니다.
+5. 출력 파일 헤더·해시·기기 정보를 확인하고 M2459B1 / FW 3.2.8의 워치페이스 설치 화면에서 명시적으로 확인한 뒤 시험합니다. 펌웨어 파일로 플래시하지 않습니다.
+
+Windows 빌드 환경이 없다면 `band10-lua-build` 브랜치의 GitHub Actions가 같은 버전의 컴파일러를 해시 검증 후 받아 빌드를 시도하고 결과를 아티팩트로 남깁니다. Android 폰에 파일을 옮긴 것만으로 Mi Fitness 개발자 워치페이스에 자동 등록되지는 않습니다. 해당 앱의 실제 화면과 설치 대상 표시를 확인한 다음 수동 설치가 필요합니다.
 
 이 프로젝트는 Xiaomi 공식 SDK나 공식 워치페이스 포맷 문서가 아닙니다. 기기·펌웨어·지역별 지원 차이를 확인한 뒤 사용하세요.
 
