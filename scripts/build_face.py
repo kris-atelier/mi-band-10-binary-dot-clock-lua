@@ -77,13 +77,22 @@ def main():
     with tempfile.TemporaryDirectory(prefix="band10-lua-") as temp:
         work = Path(temp)
         (work / "app/lua").mkdir(parents=True)
+        # EasyFace resolves every Screen bitmap below an `images` directory,
+        # including a Lua-only project whose bitmap is only a catalogue preview.
+        (work / "images").mkdir()
+        (work / "output").mkdir()
         shutil.copy2(ROOT / "app/lua/main.lua", work / "app/lua/main.lua")
-        make_preview(work / "preview.png")
+        make_preview(work / "images/preview.png")
         # The example FPRJ declares UTF-16; write actual UTF-16 bytes for the compiler.
         project.write(work / PROJECT.name, encoding="utf-16", xml_declaration=True)
         name = "MiBand10BinaryDotClock.face"
         command = [*runner, "-b", str(work / PROJECT.name), str(out), name, "1461256429"]
         subprocess.run(command, cwd=compiler.parent, check=True)
+        # Current EasyFace writes this compiler's output beside the FPRJ even
+        # when an explicit output directory is supplied.
+        generated = work / "output" / name
+        if generated.is_file() and not face.is_file():
+            shutil.copy2(generated, face)
     if not face.is_file() or face.stat().st_size < 64:
         raise SystemExit("Compiler returned without a usable .face file")
     data = face.read_bytes()
